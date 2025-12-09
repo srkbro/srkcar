@@ -1,4 +1,4 @@
-# Driver Dashboard — Car Rent Manager
+#Rent Manager
 
 This repository contains a single-file static app (`index.html`) for managing driver daily entries (rent, fuel, extra costs) and viewing charts.
 
