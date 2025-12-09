@@ -8,55 +8,15 @@
 <!-- Chart.js -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <style>
-:root{
-  --bg:#0f172a; --card:#0b1220; --muted:#94a3b8; --accent:#06b6d4; --glass: rgba(255,255,255,0.03);
-  --white: #e6eef8; --radius:14px; --gap:12px; --max-width:900px; font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans", "Helvetica Neue", Arial;
-}
-*{box-sizing:border-box}
-html,body{height:100%;margin:0;background:linear-gradient(180deg,#071028 0%, #071426 100%);color:var(--white);-webkit-font-smoothing:antialiased;}
-.container{max-width:var(--max-width);margin:18px auto;padding:14px;}
-.header{display:flex;align-items:center;gap:12px;justify-content:space-between;margin-bottom:12px;}
-.brand{display:flex;gap:12px;align-items:center;}
-.logo{width:56px;height:56px;border-radius:10px;background:linear-gradient(135deg,#06b6d4,#3b82f6);display:flex;align-items:center;justify-content:center;font-weight:700;color:#021426;font-size:18px;overflow:hidden;}
-.logo img{width:100%;height:100%;object-fit:contain;display:block;}
-.title{font-size:16px;font-weight:700;}
-.sub{color:var(--muted);font-size:13px;}
-.grid{display:grid;grid-template-columns:1fr;gap:var(--gap);}
-.card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:12px;border-radius:var(--radius);backdrop-filter: blur(6px);border:1px solid rgba(255,255,255,0.03);}
-.form-row{display:flex;gap:8px;align-items:center;margin-bottom:8px;}
-.input{width:100%;padding:10px;border-radius:10px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:var(--white);font-size:14px;}
-.btn{padding:10px 12px;border-radius:10px;border:0;cursor:pointer;font-weight:600;}
-.btn-primary{background:linear-gradient(90deg,#06b6d4,#3b82f6);color:#021426;}
-.btn-ghost{background:transparent;border:1px solid rgba(255,255,255,0.04);color:var(--white)}
-.stats{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;}
-.stat{padding:12px;border-radius:12px;background:linear-gradient(90deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border:1px solid rgba(255,255,255,0.03);}
-.stat .label{font-size:12px;color:var(--muted);}
-.stat .value{font-size:18px;font-weight:700;margin-top:6px;}
-@media(min-width:700px){ .stats{grid-template-columns:repeat(4,1fr);} }
-.charts{display:grid;grid-template-columns:1fr;gap:10px;margin-top:8px;}
-@media(min-width:860px){ .charts{grid-template-columns:1fr 1fr;} }
-.entries-list{display:grid;gap:10px;}
-.entry-card{padding:10px;border-radius:12px;background:var(--card);border:1px solid rgba(255,255,255,0.03);}
-.entry-row{display:flex;justify-content:space-between;align-items:center;gap:8px;}
-.entry-meta{display:flex;flex-direction:column;gap:6px;}
-.small{font-size:13px;color:var(--muted);}
-.table-wrap{display:none;background:transparent;}
-@media(min-width:860px){ .entries-list{display:none;} .table-wrap{display:block;background:transparent;} table{width:100%;border-collapse:collapse;color:var(--white);font-size:14px;} th,td{padding:10px;border-bottom:1px solid rgba(255,255,255,0.03);text-align:left;} th{font-size:12px;color:var(--muted);} td{font-size:13px;} }
-.footer{margin-top:12px;text-align:center;color:var(--muted);font-size:13px;}
-.kv{font-size:12px;color:var(--muted);}
-.actions{display:flex;gap:8px;}
-.icon-btn{background:transparent;border:1px solid rgba(255,255,255,0.04);padding:6px;border-radius:8px;color:var(--white);cursor:pointer}
-.driver-percent{width:84px;padding:8px;border-radius:10px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:var(--white);text-align:center}
+:root{--bg:#0f172a;--card:#0b1220;--muted:#94a3b8;--accent:#06b6d4;--glass: rgba(255,255,255,0.03);--white: #e6eef8;--radius:14px;--gap:12px;--max-width:900px;font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,"Noto Sans",Helvetica,Arial;}
+*{box-sizing:border-box}html,body{height:100%;margin:0;background:linear-gradient(180deg,#071028 0%, #071426 100%);color:var(--white);-webkit-font-smoothing:antialiased;} .container{max-width:var(--max-width);margin:18px auto;padding:14px;} .header{display:flex;align-items:center;gap:12px;justify-content:space-between;margin-bottom:12px;} .brand{display:flex;gap:12px;align-items:center;} .logo{width:56px;height:56px;border-radius:10px;background:linear-gradient(135deg,#06b6d4,#3b82f6);display:flex;align-items:center;justify-content:center;font-weight:700;color:#021426;font-size:18px;overflow:hidden;} .title{font-size:16px;font-weight:700;} .sub{color:var(--muted);font-size:13px;} .grid{display:grid;grid-template-columns:1fr;gap:var(--gap);} .card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:12px;border-radius:var(--radius);backdrop-filter: blur(6px);border:1px solid rgba(255,255,255,0.03);} .form-row{display:flex;gap:8px;align-items:center;margin-bottom:8px;} .input{width:100%;padding:10px;border-radius:10px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:var(--white);font-size:14px;} .btn{padding:10px 12px;border-radius:10px;border:0;cursor:pointer;font-weight:600;} .btn-primary{background:linear-gradient(90deg,#06b6d4,#3b82f6);color:#021426;} .btn-ghost{background:transparent;border:1px solid rgba(255,255,255,0.04);color:var(--white)} .stats{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;} .stat{padding:12px;border-radius:12px;background:linear-gradient(90deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border:1px solid rgba(255,255,255,0.03);} .stat .label{font-size:12px;color:var(--muted);} .stat .value{font-size:18px;font-weight:700;margin-top:6px;} @media(min-width:700px){ .stats{grid-template-columns:repeat(4,1fr);} } .charts{display:grid;grid-template-columns:1fr;gap:10px;margin-top:8px;} @media(min-width:860px){ .charts{grid-template-columns:1fr 1fr;} } .entries-list{display:grid;gap:10px;} .entry-card{padding:10px;border-radius:12px;background:var(--card);border:1px solid rgba(255,255,255,0.03);} .entry-row{display:flex;justify-content:space-between;align-items:center;gap:8px;} .entry-meta{display:flex;flex-direction:column;gap:6px;} .small{font-size:13px;color:var(--muted);} .table-wrap{display:none;background:transparent;} @media(min-width:860px){ .entries-list{display:none;} .table-wrap{display:block;background:transparent;} table{width:100%;border-collapse:collapse;color:var(--white);font-size:14px;} th,td{padding:10px;border-bottom:1px solid rgba(255,255,255,0.03);text-align:left;} th{font-size:12px;color:var(--muted);} td{font-size:13px;} } .footer{margin-top:12px;text-align:center;color:var(--muted);font-size:13px;} .kv{font-size:12px;color:var(--muted);} .actions{display:flex;gap:8px;} .icon-btn{background:transparent;border:1px solid rgba(255,255,255,0.04);padding:6px;border-radius:8px;color:var(--white);cursor:pointer} .driver-percent{width:84px;padding:8px;border-radius:10px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:var(--white);text-align:center}
 </style>
 </head>
 <body>
   <div class="container">
     <div class="header">
       <div class="brand">
-        <div class="logo">
-          <!-- Embedded logo image -->
-          <img alt="logo" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAABAAAAAQACAIAAADwf7zUAAAAAXNSR0IArs4c6QA…(truncated here for brevity)"/>
-        </div>
+        <div class="logo">SR</div>
         <div>
           <div class="title">Driver Dashboard</div>
           <div class="sub">Car Rent Manager — Mobile UI</div>
@@ -159,13 +119,30 @@ html,body{height:100%;margin:0;background:linear-gradient(180deg,#071028 0%, #07
 
 <input type="file" id="importJson" accept=".json" style="display:none">
 
-<script>
-(function(){
+<!-- Firebase + App script (modular) -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-app.js";
+  import { getFirestore, collection, doc, setDoc, deleteDoc, getDocs, onSnapshot, query, orderBy, getDoc } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore.js";
+
+  // ------------------ PASTE YOUR FIREBASE CONFIG BELOW (FROM YOUR CONSOLE) ------------------
+  const firebaseConfig = {
+    apiKey: "AIzaSyDcYaxhTXO2LYPnqGMD_hcJC4hxTMKLV8I",
+    authDomain: "shadhin-portfolio.firebaseapp.com",
+    projectId: "shadhin-portfolio",
+    storageBucket: "shadhin-portfolio.firebasestorage.app",
+    messagingSenderId: "362689759294",
+    appId: "1:362689759294:web:5d96f92628bf137124296f"
+  };
+  // ------------------------------------------------------------------------------------------
+
+  // initialize firebase
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+  const entriesCol = collection(db, "entries");
+  const settingsDocRef = doc(db, "meta", "settings");
+
   const STORAGE_KEY = 'driver_dashboard_entries_v1';
   const SETTINGS_KEY = 'driver_dashboard_settings_v1';
-
-  let entries = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
-  let editingId = null;
 
   // DOM refs
   const entryCountEl = document.getElementById('entryCount');
@@ -184,27 +161,89 @@ html,body{height:100%;margin:0;background:linear-gradient(180deg,#071028 0%, #07
   const driverShareEl = document.getElementById('driverShare');
   const importJson = document.getElementById('importJson');
 
-  // charts
   let dailyChart, driverChart;
-
   function format(n){ return Number(n).toLocaleString(); }
 
-  // load percent from settings
-  try{
-    const s = JSON.parse(localStorage.getItem(SETTINGS_KEY) || '{}');
-    if(s.driverPercent !== undefined) driverPercentEl.value = s.driverPercent;
-  }catch(e){}
+  // local fallback entries while firestore loads
+  let entries = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+  let editingId = null;
 
-  driverPercentEl.addEventListener('change', ()=>{
+  // Load settings from Firestore first (if exists), else localStorage
+  async function loadSettings() {
+    try {
+      const snap = await getDoc(settingsDocRef);
+      if (snap.exists()) {
+        const data = snap.data();
+        if (data.driverPercent !== undefined) {
+          driverPercentEl.value = data.driverPercent;
+          localStorage.setItem(SETTINGS_KEY, JSON.stringify({driverPercent: data.driverPercent}));
+        }
+      } else {
+        const st = JSON.parse(localStorage.getItem(SETTINGS_KEY) || '{}');
+        if (st.driverPercent !== undefined) driverPercentEl.value = st.driverPercent;
+      }
+    } catch (err) {
+      console.warn("Could not load settings from Firestore:", err);
+      const st = JSON.parse(localStorage.getItem(SETTINGS_KEY) || '{}');
+      if (st.driverPercent !== undefined) driverPercentEl.value = st.driverPercent;
+    }
+  }
+
+  driverPercentEl.addEventListener('change', async ()=>{
     const v = Number(driverPercentEl.value) || 0;
-    localStorage.setItem(SETTINGS_KEY, JSON.stringify({driverPercent:v}));
+    localStorage.setItem(SETTINGS_KEY, JSON.stringify({driverPercent: v}));
+    try {
+      await setDoc(settingsDocRef, { driverPercent: v }, { merge: true });
+    } catch(e) { console.warn("Settings save failed:", e); }
     render();
     updateStats();
   });
 
-  function saveEntries(){ localStorage.setItem(STORAGE_KEY, JSON.stringify(entries)); }
+  function saveLocalEntries(){ localStorage.setItem(STORAGE_KEY, JSON.stringify(entries)); }
 
-  document.getElementById('entryForm').addEventListener('submit', (ev)=>{
+  // Firestore query and realtime listener
+  const q = query(entriesCol, orderBy("createdAt", "desc"));
+  onSnapshot(q, (snapshot) => {
+    const docs = [];
+    snapshot.forEach(docSnap => {
+      const data = docSnap.data();
+      docs.push({
+        id: docSnap.id,
+        date: data.date || new Date().toISOString().slice(0,10),
+        driver: data.driver || "",
+        rent: Number(data.rent || 0),
+        fuel: Number(data.fuel || 0),
+        extra: Number(data.extra || 0),
+        notes: data.notes || ""
+      });
+    });
+    entries = docs;
+    saveLocalEntries();
+    render();
+    updateStats();
+  }, (err) => {
+    console.warn("Firestore snapshot error:", err);
+    render();
+    updateStats();
+  });
+
+  async function upsertEntryToFirestore(obj) {
+    try {
+      const docRef = doc(entriesCol, String(obj.id));
+      await setDoc(docRef, { 
+        date: obj.date, driver: obj.driver, rent: obj.rent, fuel: obj.fuel, extra: obj.extra, notes: obj.notes,
+        createdAt: Date.now()
+      }, { merge: true });
+    } catch (e) { console.error("upsert failed", e); }
+  }
+
+  async function deleteEntryFromFirestore(id) {
+    try {
+      await deleteDoc(doc(entriesCol, String(id)));
+    } catch (e) { console.error("delete failed", e); }
+  }
+
+  document.getElementById('entryForm').addEventListener('submit', async (ev)=>{
     ev.preventDefault();
     if(!driverEl.value.trim()){ alert('Driver name required'); return; }
     const obj = {
@@ -217,8 +256,11 @@ html,body{height:100%;margin:0;background:linear-gradient(180deg,#071028 0%, #07
       notes: notesEl.value||''
     };
     if(editingId){ entries = entries.map(x=> x.id===editingId ? obj : x); editingId = null; } else { entries.unshift(obj); }
-    saveEntries(); document.getElementById('entryForm').reset(); dateEl.value = new Date().toISOString().slice(0,10);
-    render(); updateStats(); window.scrollTo({top:0,behavior:'smooth'});
+    saveLocalEntries();
+    render(); updateStats();
+    await upsertEntryToFirestore(obj);
+    document.getElementById('entryForm').reset();
+    dateEl.value = new Date().toISOString().slice(0,10);
   });
 
   document.getElementById('resetBtn').addEventListener('click', ()=>{ document.getElementById('entryForm').reset(); editingId = null; dateEl.value = new Date().toISOString().slice(0,10); });
@@ -227,7 +269,26 @@ html,body{height:100%;margin:0;background:linear-gradient(180deg,#071028 0%, #07
   importJson.addEventListener('change', function(){
     const f = this.files[0]; if(!f) return;
     const r = new FileReader();
-    r.onload = (e)=>{ try{ const data = JSON.parse(e.target.result); if(!Array.isArray(data)) throw 'Invalid'; entries = data.concat(entries); saveEntries(); render(); updateStats(); alert('Imported'); }catch(err){ alert('Invalid JSON file'); } };
+    r.onload = async (e)=>{ 
+      try{ 
+        const data = JSON.parse(e.target.result); 
+        if(!Array.isArray(data)) throw 'Invalid'; 
+        for(const item of data){
+          const id = item.id || Date.now() + Math.floor(Math.random()*10000);
+          const obj = {
+            id: id,
+            date: item.date || new Date().toISOString().slice(0,10),
+            driver: item.driver || '',
+            rent: Number(item.rent)||0,
+            fuel: Number(item.fuel)||0,
+            extra: Number(item.extra)||0,
+            notes: item.notes || ''
+          };
+          await upsertEntryToFirestore(obj);
+        }
+        alert('Imported to Firestore');
+      }catch(err){ alert('Invalid JSON file'); }
+    };
     r.readAsText(f); this.value='';
   });
 
@@ -242,26 +303,19 @@ html,body{height:100%;margin:0;background:linear-gradient(180deg,#071028 0%, #07
     window.scrollTo({top:0,behavior:'smooth'});
   };
 
-  window.deleteEntry = function(id){
+  window.deleteEntry = async function(id){
     if(!confirm('Delete?')) return;
-    entries = entries.filter(x=> x.id!==id); saveEntries(); render(); updateStats();
+    entries = entries.filter(x=> x.id!==id);
+    saveLocalEntries();
+    render(); updateStats();
+    await deleteEntryFromFirestore(id);
   };
 
-  // charts init
   function initCharts(){
     const ctx1 = document.getElementById('dailyChart').getContext('2d');
-    dailyChart = new Chart(ctx1, {
-      type:'line',
-      data:{ labels:[], datasets:[ {label:'Income', data:[], fill:false, tension:0.3}, {label:'Expense', data:[], fill:false, tension:0.3} ] },
-      options:{ responsive:true, maintainAspectRatio:false, plugins:{legend:{position:'bottom'}} }
-    });
-
+    dailyChart = new Chart(ctx1, { type:'line', data:{ labels:[], datasets:[ {label:'Income', data:[], fill:false, tension:0.3}, {label:'Expense', data:[], fill:false, tension:0.3} ] }, options:{ responsive:true, maintainAspectRatio:false, plugins:{legend:{position:'bottom'}} } });
     const ctx2 = document.getElementById('driverChart').getContext('2d');
-    driverChart = new Chart(ctx2, {
-      type:'bar',
-      data:{ labels:[], datasets:[ {label:'Income', data:[]}, {label:'Expense', data:[]} ] },
-      options:{ responsive:true, maintainAspectRatio:false, plugins:{legend:{position:'bottom'}} }
-    });
+    driverChart = new Chart(ctx2, { type:'bar', data:{ labels:[], datasets:[ {label:'Income', data:[]}, {label:'Expense', data:[]} ] }, options:{ responsive:true, maintainAspectRatio:false, plugins:{legend:{position:'bottom'}} } });
   }
 
   function updateStats(){
@@ -325,23 +379,10 @@ html,body{height:100%;margin:0;background:linear-gradient(180deg,#071028 0%, #07
     updateStats();
   }
 
-  initCharts = function(){};
-  // initialize charts properly after DOM load
-  (function(){ 
-    const ctx1 = document.getElementById('dailyChart').getContext('2d');
-    dailyChart = new Chart(ctx1, { type:'line', data:{ labels:[], datasets:[ {label:'Income', data:[], fill:false, tension:0.3}, {label:'Expense', data:[], fill:false, tension:0.3} ] }, options:{ responsive:true, maintainAspectRatio:false, plugins:{legend:{position:'bottom'}} } });
-    const ctx2 = document.getElementById('driverChart').getContext('2d');
-    driverChart = new Chart(ctx2, { type:'bar', data:{ labels:[], datasets:[ {label:'Income', data:[]}, {label:'Expense', data:[]} ] }, options:{ responsive:true, maintainAspectRatio:false, plugins:{legend:{position:'bottom'}} } });
-  })();
+  // init
+  initCharts();
+  loadSettings().then(()=>{ render(); updateStats(); });
 
-  // init render
-  render(); updateStats();
-
-  // expose window helpers
-  window.editEntry = function(id){ const e = entries.find(x=>x.id===id); if(!e) return; editingId = id; dateEl.value=e.date; driverEl.value=e.driver; rentEl.value=e.rent; fuelEl.value=e.fuel; extraEl.value=e.extra; notesEl.value=e.notes; window.scrollTo({top:0,behavior:'smooth'}); }
-  window.deleteEntry = function(id){ if(!confirm('Delete?')) return; entries = entries.filter(x=> x.id!==id); localStorage.setItem(STORAGE_KEY, JSON.stringify(entries)); render(); updateStats(); }
-
-})();
 </script>
 </body>
 </html>
