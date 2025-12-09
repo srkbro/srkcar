@@ -258,4 +258,118 @@
     dailyChart = new Chart(document.getElementById("dailyChart"), {
       type:"line",
       data:{labels:[],datasets:[
-        {label:"Income",data
+        {label:"Income",data:[],borderWidth:2},
+        {label:"Expense",data:[],borderWidth:2}
+      ]}
+    });
+
+    driverChart = new Chart(document.getElementById("driverChart"), {
+      type:"bar",
+      data:{labels:[],datasets:[
+        {label:"Income",data:[]},
+        {label:"Expense",data:[]}
+      ]}
+    });
+
+    pieChart = new Chart(document.getElementById("pieChart"), {
+      type:"pie",
+      data:{labels:["Income","Expense"],datasets:[{data:[0,0]}]}
+    });
+  }
+
+  function updateStats(){
+    const totals = {income:0, fuel:0, extra:0};
+    entries.forEach(e=>{
+      totals.income += e.rent;
+      totals.fuel += e.fuel;
+      totals.extra += e.extra;
+    });
+
+    totals.expense = totals.fuel + totals.extra;
+    totals.profit = totals.income - totals.expense;
+
+    totalIncomeEl.textContent = totals.income.toLocaleString();
+    totalExpenseEl.textContent = totals.expense.toLocaleString();
+    profitEl.textContent = totals.profit.toLocaleString();
+
+    const percent = Number(driverPercentEl.value)||40;
+    const dShare = Math.round(totals.profit * percent / 100);
+    driverShareEl.textContent = dShare.toLocaleString();
+
+    // Daily chart
+    const daily = {};
+    entries.forEach(e=>{
+      if(!daily[e.date]) daily[e.date] = {income:0,expense:0};
+      daily[e.date].income += e.rent;
+      daily[e.date].expense += e.fuel + e.extra;
+    });
+
+    const dates = Object.keys(daily).sort();
+    dailyChart.data.labels = dates;
+    dailyChart.data.datasets[0].data = dates.map(d=>daily[d].income);
+    dailyChart.data.datasets[1].data = dates.map(d=>daily[d].expense);
+    dailyChart.update();
+
+    // Driver chart
+    const drivers = {};
+    entries.forEach(e=>{
+      if(!drivers[e.driver]) drivers[e.driver] = {income:0,expense:0};
+      drivers[e.driver].income += e.rent;
+      drivers[e.driver].expense += e.fuel + e.extra;
+    });
+
+    const dNames = Object.keys(drivers);
+    driverChart.data.labels = dNames;
+    driverChart.data.datasets[0].data = dNames.map(n=>drivers[n].income);
+    driverChart.data.datasets[1].data = dNames.map(n=>drivers[n].expense);
+    driverChart.update();
+
+    // Pie chart
+    pieChart.data.datasets[0].data = [totals.income, totals.expense];
+    pieChart.update();
+  }
+
+  document.getElementById("exportCsvBtn").onclick = ()=>{
+    if(!entries.length) return alert("No entries");
+    const header = "id,date,driver,rent,fuel,extra,notes\n";
+    const rows = entries.map(e=>`${e.id},${e.date},"${e.driver}",${e.rent},${e.fuel},${e.extra},"${e.notes}"`);
+    const blob = new Blob([header + rows.join("\n")],{type:"text/csv"});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href=url; a.download="entries.csv"; a.click();
+  };
+
+  document.getElementById("exportJsonBtn").onclick = ()=>{
+    const blob = new Blob([JSON.stringify(entries,null,2)],{type:"application/json"});
+    const url = URL.createObjectURL(blob);
+    const a=document.createElement("a");
+    a.href=url; a.download="entries.json"; a.click();
+  };
+
+  document.getElementById("importJsonBtn").onclick = ()=>document.getElementById("importJson").click();
+  document.getElementById("importJson").addEventListener("change", function(){
+    const file = this.files[0];
+    if(!file) return;
+    const reader = new FileReader();
+    reader.onload = e=>{
+      try{
+        const data = JSON.parse(e.target.result);
+        if(!Array.isArray(data)) return alert("Invalid JSON!");
+        entries = data.concat(entries);
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(entries));
+        render(); updateStats();
+      }catch(err){ alert("Cannot read JSON"); }
+    };
+    reader.readAsText(file);
+  });
+
+  // init
+  dateEl.value = new Date().toISOString().slice(0,10);
+  initCharts();
+  render();
+  updateStats();
+})();
+</script>
+
+</body>
+</html>
