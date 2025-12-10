@@ -32,47 +32,55 @@
         <div class="logo">SR</div>
         <div>
           <div class="title">GO FAST RENT-A CAR</div>
-          <div class="sub">Car Rent Manager</div>
+          <div class="sub" data-key="sub_title">Car Rent Manager</div>
         </div>
       </div>
       <div style="display:flex;align-items:center;gap:10px">
-        <div style="text-align:right"><div class="small">Entries</div><div id="entryCount" style="font-weight:700">0</div></div>
-        <button id="exportBtn" class="btn">⤓</button>
+        <div style="text-align:right">
+          <div class="small" data-key="entries_label">Entries</div>
+          <div id="entryCount" style="font-weight:700">0</div>
+        </div>
+        <button id="exportBtn" class="btn" title="Export">⤓</button>
+        <button id="langToggle" class="btn">বাংলা</button>
       </div>
     </div>
 
     <div class="card">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
-        <div style="font-weight:700">Add / Edit Entry</div>
-        <div style="display:flex;align-items:center;gap:8px"><label class="small">ড্রাইভার %</label><input id="driverPercent" class="driver-percent" type="number" min="0" max="100" value="40" /></div>
+        <div style="font-weight:700" data-key="add_edit">Add / Edit Entry</div>
+        <div style="display:flex;align-items:center;gap:8px">
+          <label class="small" data-key="driver_percent_label">Driver %</label>
+          <input id="driverPercent" class="driver-percent" type="number" min="0" max="100" value="40" />
+        </div>
       </div>
 
       <form id="entryForm" style="display:grid;gap:8px">
-        <input id="date" class="input" type="date" required />
-        <input id="driver" class="input" placeholder="ড্রাইভারের নাম" required />
+        <input id="date" class="input" type="date" required data-key="date_field" />
+        <input id="driver" class="input" placeholder="Driver name" required data-key="driver_ph" />
         <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px">
-          <input id="rent" class="input" placeholder="ভাড়া" type="number" />
-          <input id="fuel" class="input" placeholder="জ্বালানি" type="number" />
-          <input id="extra" class="input" placeholder="অতিরিক্ত" type="number" />
+          <input id="rent" class="input" placeholder="Rent" type="number" data-key="rent_ph" />
+          <input id="fuel" class="input" placeholder="Fuel" type="number" data-key="fuel_ph" />
+          <input id="extra" class="input" placeholder="Extra" type="number" data-key="extra_ph" />
         </div>
-        <input id="notes" class="input" placeholder="মন্তব্য (ঐচ্ছিক)" />
+        <input id="notes" class="input" placeholder="Notes (optional)" data-key="notes_ph" />
         <div style="display:flex;gap:8px">
-          <button class="btn btn-primary" type="submit">সংরক্ষণ</button>
-          <button class="btn" type="button" id="resetBtn">রিসেট</button>
-          <button class="btn" type="button" id="importBtn">ইম্পোর্ট</button>
+          <button class="btn btn-primary" type="submit" data-key="save_btn">Save</button>
+          <button class="btn" type="button" id="resetBtn" data-key="reset_btn">Reset</button>
+          <button class="btn" type="button" id="importBtn" data-key="import_btn">Import</button>
         </div>
       </form>
     </div>
 
     <div class="card" style="margin-top:12px">
       <div style="display:flex;justify-content:space-between;align-items:center">
-        <div style="font-weight:700">Overview</div><div class="small">Live numbers</div>
+        <div style="font-weight:700" data-key="overview">Overview</div>
+        <div class="small" data-key="live_numbers">Live numbers</div>
       </div>
       <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:10px">
-        <div class="card"><div class="small">Total Income</div><div id="totalIncome" style="font-weight:700">0</div></div>
-        <div class="card"><div class="small">Total Expense</div><div id="totalExpense" style="font-weight:700">0</div></div>
-        <div class="card"><div class="small">Profit</div><div id="profit" style="font-weight:700">0</div></div>
-        <div class="card"><div class="small">Driver Income</div><div id="driverShare" style="font-weight:700">0</div></div>
+        <div class="card"><div class="small" data-key="total_income">Total Income</div><div id="totalIncome" style="font-weight:700">0</div></div>
+        <div class="card"><div class="small" data-key="total_expense">Total Expense</div><div id="totalExpense" style="font-weight:700">0</div></div>
+        <div class="card"><div class="small" data-key="profit">Profit</div><div id="profit" style="font-weight:700">0</div></div>
+        <div class="card"><div class="small" data-key="driver_income">Driver Income</div><div id="driverShare" style="font-weight:700">0</div></div>
       </div>
       <div class="charts" style="margin-top:10px;display:grid;grid-template-columns:1fr;gap:8px">
         <canvas id="dailyChart" height="140"></canvas>
@@ -81,15 +89,29 @@
 
     <div class="card" style="margin-top:12px">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
-        <div style="font-weight:700">Entries</div><div class="small">Tap item to edit</div>
+        <div style="font-weight:700" data-key="entries_title">Entries</div>
+        <div class="small" data-key="tap_edit">Tap item to edit</div>
       </div>
       <div class="entries-list" id="entriesList"></div>
       <div class="table-wrap" id="tableWrap" style="display:none;margin-top:8px">
-        <table><thead><tr><th>Date</th><th>Driver</th><th>Rent</th><th>Fuel</th><th>Extra</th><th>Profit</th><th>Driver</th></tr></thead><tbody id="entriesTable"></tbody></table>
+        <table>
+          <thead>
+            <tr>
+              <th data-key="th_date">Date</th>
+              <th data-key="th_driver">Driver</th>
+              <th data-key="th_rent">Rent</th>
+              <th data-key="th_fuel">Fuel</th>
+              <th data-key="th_extra">Extra</th>
+              <th data-key="th_profit">Profit</th>
+              <th data-key="th_driver_share">Driver</th>
+            </tr>
+          </thead>
+          <tbody id="entriesTable"></tbody>
+        </table>
       </div>
     </div>
 
-    <div class="small" style="margin-top:12px;text-align:center">© 2025 Md Sadikur Rahman Shadhin — All rights reserved</div>
+    <div class="small" style="margin-top:12px;text-align:center" data-key="footer_copy">© 2025 Md Sadikur Rahman Shadhin — All rights reserved</div>
   </div>
 
   <input type="file" id="importJson" accept=".json" style="display:none">
@@ -134,15 +156,136 @@
     const profitEl = document.getElementById('profit');
     const driverShareEl = document.getElementById('driverShare');
     const importJson = document.getElementById('importJson');
+    const langToggleBtn = document.getElementById('langToggle');
 
-    let dailyChart, driverChart;
+    let dailyChart;
     function format(n){ return Number(n).toLocaleString(); }
 
     // local fallback entries while firestore loads
     let entries = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
     let editingId = null;
 
-    // Load settings from Firestore first (if exists), else localStorage
+    // ---- Language data ----
+    const langData = {
+      en: {
+        sub_title: "Car Rent Manager",
+        entries_label: "Entries",
+        add_edit: "Add / Edit Entry",
+        driver_percent_label: "Driver %",
+        date_field: "Date",
+        driver_ph: "Driver name",
+        rent_ph: "Rent",
+        fuel_ph: "Fuel",
+        extra_ph: "Extra",
+        notes_ph: "Notes (optional)",
+        save_btn: "Save",
+        reset_btn: "Reset",
+        import_btn: "Import",
+        overview: "Overview",
+        live_numbers: "Live numbers",
+        total_income: "Total Income",
+        total_expense: "Total Expense",
+        profit: "Profit",
+        driver_income: "Driver Income",
+        entries_title: "Entries",
+        tap_edit: "Tap item to edit",
+        th_date: "Date",
+        th_driver: "Driver",
+        th_rent: "Rent",
+        th_fuel: "Fuel",
+        th_extra: "Extra",
+        th_profit: "Profit",
+        th_driver_share: "Driver",
+        footer_copy: "© 2025 Md Sadikur Rahman Shadhin — All rights reserved",
+        driver_name_required: "Driver name required",
+        imported_ok: "Imported to Firestore",
+        invalid_json: "Invalid JSON file",
+        delete_confirm: "Delete?",
+        income: "Income",
+        expense: "Expense",
+        profit_label: "Profit:",
+        driver_label: "Driver:"
+      },
+      bn: {
+        sub_title: "গাড়ি ভাড়া ম্যানেজার",
+        entries_label: "এন্ট্রি",
+        add_edit: "এন্ট্রি যোগ / সম্পাদনা",
+        driver_percent_label: "ড্রাইভার %",
+        date_field: "তারিখ",
+        driver_ph: "ড্রাইভারের নাম",
+        rent_ph: "ভাড়া",
+        fuel_ph: "জ্বালানি",
+        extra_ph: "অতিরিক্ত",
+        notes_ph: "মন্তব্য (ঐচ্ছিক)",
+        save_btn: "সংরক্ষণ",
+        reset_btn: "রিসেট",
+        import_btn: "ইম্পোর্ট",
+        overview: "সারাংশ",
+        live_numbers: "লাইভ হিসাব",
+        total_income: "মোট আয়",
+        total_expense: "মোট খরচ",
+        profit: "লাভ",
+        driver_income: "ড্রাইভারের প্রাপ্য",
+        entries_title: "সমস্ত এন্ট্রি",
+        tap_edit: "এডিট করতে চাপ দিন",
+        th_date: "তারিখ",
+        th_driver: "ড্রাইভার",
+        th_rent: "ভাড়া",
+        th_fuel: "জ্বালানি",
+        th_extra: "অতিরিক্ত",
+        th_profit: "লাভ",
+        th_driver_share: "ড্রাইভার",
+        footer_copy: "© 2025 Md Sadikur Rahman Shadhin — সর্বস্বত্ব সংরক্ষিত",
+        driver_name_required: "ড্রাইভারের নাম দিতে হবে",
+        imported_ok: "Firestore-এ ইম্পোর্ট হয়েছে",
+        invalid_json: "অবৈধ JSON ফাইল",
+        delete_confirm: "মুছে ফেলবেন?",
+        income: "আয়",
+        expense: "খরচ",
+        profit_label: "লাভ:",
+        driver_label: "ড্রাইভার:"
+      }
+    };
+
+    // helper for current language
+    let currentLang = localStorage.getItem("lang") || "bn"; // default বাংলা
+    function t(key){
+      return (langData[currentLang] && langData[currentLang][key]) || key;
+    }
+
+    function applyLanguage(lang){
+      currentLang = lang;
+      // apply to elements with data-key
+      document.querySelectorAll("[data-key]").forEach(el=>{
+        const key = el.getAttribute("data-key");
+        if(!key) return;
+        // inputs/textareas -> placeholder
+        const tag = el.tagName.toLowerCase();
+        if(tag === 'input' || tag === 'textarea'){
+          const type = el.getAttribute('type');
+          // if it's date type we'll not change placeholder
+          if(type && type.toLowerCase()==='date') return;
+          el.placeholder = (langData[lang] && langData[lang][key]) || el.placeholder;
+        } else {
+          el.textContent = (langData[lang] && langData[lang][key]) || el.textContent;
+        }
+      });
+
+      // lang toggle button text: show the other language name
+      langToggleBtn.textContent = (lang === 'en') ? 'বাংলা' : 'English';
+
+      // update chart labels if chart exists
+      if(dailyChart && dailyChart.data && dailyChart.data.datasets){
+        dailyChart.data.datasets[0].label = t('income');
+        dailyChart.data.datasets[1].label = t('expense');
+        dailyChart.update();
+      }
+    }
+
+    // init chosen language
+    applyLanguage(currentLang);
+
+    // Save settings (driver percent) to Firestore/local
     async function loadSettings() {
       try {
         const snap = await getDoc(settingsDocRef);
@@ -171,6 +314,13 @@
       } catch(e) { console.warn("Settings save failed:", e); }
       render();
       updateStats();
+    });
+
+    // language toggle click
+    langToggleBtn.addEventListener('click', ()=>{
+      currentLang = currentLang === 'en' ? 'bn' : 'en';
+      applyLanguage(currentLang);
+      localStorage.setItem("lang", currentLang);
     });
 
     function saveLocalEntries(){ localStorage.setItem(STORAGE_KEY, JSON.stringify(entries)); }
@@ -217,7 +367,7 @@
 
     document.getElementById('entryForm').addEventListener('submit', async (ev)=>{
       ev.preventDefault();
-      if(!driverEl.value.trim()){ alert('Driver name required'); return; }
+      if(!driverEl.value.trim()){ alert(t('driver_name_required')); return; }
       const obj = {
         id: editingId || Date.now(),
         date: dateEl.value || new Date().toISOString().slice(0,10),
@@ -258,8 +408,8 @@
             };
             await upsertEntryToFirestore(obj);
           }
-          alert('Imported to Firestore');
-        }catch(err){ alert('Invalid JSON file'); }
+          alert(t('imported_ok'));
+        }catch(err){ alert(t('invalid_json')); }
       };
       r.readAsText(f); this.value='';
     });
@@ -271,15 +421,23 @@
 
     window.editEntry = function(id){ const e = entries.find(x=>x.id===id); if(!e) return; editingId = id; dateEl.value = e.date; driverEl.value = e.driver; rentEl.value = e.rent; fuelEl.value = e.fuel; extraEl.value = e.extra; notesEl.value = e.notes; window.scrollTo({top:0,behavior:'smooth'}); };
 
-    window.deleteEntry = async function(id){ if(!confirm('Delete?')) return; entries = entries.filter(x=> x.id!==id); saveLocalEntries(); render(); updateStats(); await deleteEntryFromFirestore(id); };
+    window.deleteEntry = async function(id){ if(!confirm(t('delete_confirm'))) return; entries = entries.filter(x=> x.id!==id); saveLocalEntries(); render(); updateStats(); await deleteEntryFromFirestore(id); };
 
-    function initCharts(){ try{ const ctx1 = document.getElementById('dailyChart').getContext('2d'); dailyChart = new Chart(ctx1, { type:'line', data:{ labels:[], datasets:[ {label:'Income', data:[], fill:false, tension:0.3}, {label:'Expense', data:[], fill:false, tension:0.3} ] }, options:{ responsive:true, maintainAspectRatio:false, plugins:{legend:{position:'bottom'}} } }); const ctx2canvas = document.createElement('canvas'); ctx2canvas.style.display='none'; document.body.appendChild(ctx2canvas); }catch(e){console.warn('chart init', e)} }
+    function initCharts(){ try{ const ctx1 = document.getElementById('dailyChart').getContext('2d'); dailyChart = new Chart(ctx1, { type:'line', data:{ labels:[], datasets:[ {label:t('income'), data:[], fill:false, tension:0.3}, {label:t('expense'), data:[], fill:false, tension:0.3} ] }, options:{ responsive:true, maintainAspectRatio:false, plugins:{legend:{position:'bottom'}} } }); const ctx2canvas = document.createElement('canvas'); ctx2canvas.style.display='none'; document.body.appendChild(ctx2canvas); }catch(e){console.warn('chart init', e)} }
     function updateStats(){ const totals = {income:0,fuel:0,extra:0}; entries.forEach(e=>{ totals.income += e.rent; totals.fuel += e.fuel; totals.extra += e.extra; }); totals.expense = totals.fuel + totals.extra; totals.profit = totals.income - totals.expense; totalIncomeEl.textContent = format(totals.income); totalExpenseEl.textContent = format(totals.expense); profitEl.textContent = format(totals.profit); const percent = Number(driverPercentEl.value)||40; const dShare = Math.max(0, Math.round(totals.profit * percent / 100)); driverShareEl.textContent = format(dShare); try{ const daily = {}; entries.forEach(e=>{ if(!daily[e.date]) daily[e.date] = {income:0,expense:0}; daily[e.date].income += e.rent; daily[e.date].expense += (e.fuel + e.extra); }); const dates = Object.keys(daily).sort(); if(dailyChart){ dailyChart.data.labels = dates; dailyChart.data.datasets[0].data = dates.map(d=>daily[d].income); dailyChart.data.datasets[1].data = dates.map(d=>daily[d].expense); dailyChart.update(); } }catch(e){} }
-    function render(){ entryCountEl.textContent = entries.length; entriesList.innerHTML = ''; entries.forEach(e=>{ const profit = e.rent - (e.fuel + e.extra); const percent = Number(driverPercentEl.value)||40; const dShare = Math.max(0, Math.round(profit * percent / 100)); const card = document.createElement('div'); card.className='entry-card'; card.innerHTML = '<div style="display:flex;justify-content:space-between;align-items:center"><div><div style="font-weight:700">'+e.driver+'</div><div class="small">'+e.date+' · '+format(e.rent)+'</div></div><div style="text-align:right"><div style="font-weight:700">Profit: '+format(profit)+'</div><div class="small">Driver: '+format(dShare)+'</div></div></div><div style="display:flex;justify-content:space-between;margin-top:8px;align-items:center"><div class="small">'+(e.notes||'')+'</div><div style="display:flex;gap:8px"><button class="btn" onclick="editEntry('+e.id+')">✎</button><button class="btn" onclick="deleteEntry('+e.id+')">🗑</button></div></div>'; card.addEventListener('click', function(ev){ if(ev.target.tagName.toLowerCase() !== 'button') editEntry(e.id); }); entriesList.appendChild(card); }); entriesTable.innerHTML = ''; entries.forEach(e=>{ const profit = e.rent - (e.fuel + e.extra); const percent = Number(driverPercentEl.value)||40; const dShare = Math.max(0, Math.round(profit * percent / 100)); const tr = document.createElement('tr'); tr.innerHTML = '<td>'+e.date+'</td><td>'+e.driver+'</td><td>'+format(e.rent)+'</td><td>'+format(e.fuel)+'</td><td>'+format(e.extra)+'</td><td>'+format(profit)+'</td><td>'+format(dShare)+'</td>'; entriesTable.appendChild(tr); }); updateStats(); }
+    function render(){ entryCountEl.textContent = entries.length; entriesList.innerHTML = ''; entries.forEach(e=>{ const profit = e.rent - (e.fuel + e.extra); const percent = Number(driverPercentEl.value)||40; const dShare = Math.max(0, Math.round(profit * percent / 100)); const card = document.createElement('div'); card.className='entry-card'; card.innerHTML = '<div style="display:flex;justify-content:space-between;align-items:center"><div><div style="font-weight:700">'+escapeHtml(e.driver)+'</div><div class="small">'+e.date+' · '+format(e.rent)+'</div></div><div style="text-align:right"><div style="font-weight:700">'+t('profit_label')+' '+format(profit)+'</div><div class="small">'+t('driver_label')+' '+format(dShare)+'</div></div></div><div style="display:flex;justify-content:space-between;margin-top:8px;align-items:center"><div class="small">'+escapeHtml(e.notes||'')+'</div><div style="display:flex;gap:8px"><button class="btn" onclick="editEntry('+e.id+')">✎</button><button class="btn" onclick="deleteEntry('+e.id+')">🗑</button></div></div>'; card.addEventListener('click', function(ev){ if(ev.target.tagName.toLowerCase() !== 'button') editEntry(e.id); }); entriesList.appendChild(card); }); entriesTable.innerHTML = ''; entries.forEach(e=>{ const profit = e.rent - (e.fuel + e.extra); const percent = Number(driverPercentEl.value)||40; const dShare = Math.max(0, Math.round(profit * percent / 100)); const tr = document.createElement('tr'); tr.innerHTML = '<td>'+e.date+'</td><td>'+escapeHtml(e.driver)+'</td><td>'+format(e.rent)+'</td><td>'+format(e.fuel)+'</td><td>'+format(e.extra)+'</td><td>'+format(profit)+'</td><td>'+format(dShare)+'</td>'; entriesTable.appendChild(tr); }); updateStats(); applyLanguage(currentLang); }
+
+    // simple escape to avoid HTML injection in notes/driver
+    function escapeHtml(text){
+      return String(text).replace(/[&<>"'`=\/]/g, function (s) {
+        return ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;','/':'&#x2F;','`':'&#x60;','=':'&#x3D;'})[s];
+      });
+    }
 
     // init
     initCharts();
     loadSettings().then(()=>{ render(); updateStats(); });
+
   </script>
 </body>
 </html>
