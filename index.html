@@ -44,22 +44,22 @@
     <div class="card">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
         <div style="font-weight:700">Add / Edit Entry</div>
-        <div style="display:flex;align-items:center;gap:8px"><label class="small">Driver %</label><input id="driverPercent" class="driver-percent" type="number" min="0" max="100" value="40" /></div>
+        <div style="display:flex;align-items:center;gap:8px"><label class="small">ড্রাইভার %</label><input id="driverPercent" class="driver-percent" type="number" min="0" max="100" value="40" /></div>
       </div>
 
       <form id="entryForm" style="display:grid;gap:8px">
         <input id="date" class="input" type="date" required />
-        <input id="driver" class="input" placeholder="Driver name" required />
+        <input id="driver" class="input" placeholder="ড্রাইভারের নাম" required />
         <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px">
-          <input id="rent" class="input" placeholder="Rent" type="number" />
-          <input id="fuel" class="input" placeholder="Fuel" type="number" />
-          <input id="extra" class="input" placeholder="Extra" type="number" />
+          <input id="rent" class="input" placeholder="ভাড়া" type="number" />
+          <input id="fuel" class="input" placeholder="জ্বালানি" type="number" />
+          <input id="extra" class="input" placeholder="অতিরিক্ত" type="number" />
         </div>
-        <input id="notes" class="input" placeholder="Notes (optional)" />
+        <input id="notes" class="input" placeholder="মন্তব্য (ঐচ্ছিক)" />
         <div style="display:flex;gap:8px">
-          <button class="btn btn-primary" type="submit">Save</button>
-          <button class="btn" type="button" id="resetBtn">Reset</button>
-          <button class="btn" type="button" id="importBtn">Import</button>
+          <button class="btn btn-primary" type="submit">সংরক্ষণ</button>
+          <button class="btn" type="button" id="resetBtn">রিসেট</button>
+          <button class="btn" type="button" id="importBtn">ইম্পোর্ট</button>
         </div>
       </form>
     </div>
