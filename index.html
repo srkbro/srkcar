@@ -6,103 +6,25 @@
   <title>GO FAST RENT-A CAR</title>
   <link rel="icon" href="data:,">
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
   <style>
-    :root{
-      --bg:#0f172a;
-      --card:#0b1220;
-      --muted:#94a3b8;
-      --white:#e6eef8;
-      --radius:12px;
-      --max-width:900px;
-      --gap:12px;
-      font-family:Inter,system-ui,Arial;
-    }
-
-    *{box-sizing:border-box}
-    html,body{
-      height:100%;
-      margin:0;
-      background:linear-gradient(180deg,#071028 0%,#071426 100%);
-      color:var(--white);
-      -webkit-font-smoothing:antialiased;
-    }
-
+    :root{--bg:#0f172a;--card:#0b1220;--muted:#94a3b8;--white:#e6eef8;--radius:12px;--max-width:900px;--gap:12px;font-family:Inter,system-ui,Arial;}
+    *{box-sizing:border-box}html,body{height:100%;margin:0;background:linear-gradient(180deg,#071028 0%,#071426 100%);color:var(--white);-webkit-font-smoothing:antialiased}
     .container{max-width:var(--max-width);margin:18px auto;padding:14px}
     .header{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px}
     .brand{display:flex;align-items:center;gap:12px}
     .logo{width:56px;height:56px;border-radius:10px;background:linear-gradient(135deg,#06b6d4,#3b82f6);display:flex;align-items:center;justify-content:center;font-weight:700;color:#021426}
     .title{font-weight:700}
     .sub{color:var(--muted);font-size:13px}
-
-    .card{
-      background:linear-gradient(180deg,rgba(255,255,255,0.02),rgba(255,255,255,0.01));
-      padding:12px;
-      border-radius:var(--radius);
-      border:1px solid rgba(255,255,255,0.03);
-    }
-
-    /* ===== INPUT STYLE (UPDATED) ===== */
-    .input,
-    .driver-percent{
-      width:100%;
-      padding:10px;
-      border-radius:10px;
-      background:rgba(255,255,255,0.04);
-      color:#ffffff;
-      border:1px solid rgba(255,255,255,0.18);
-      box-shadow:inset 0 0 0 1px rgba(255,255,255,0.05);
-    }
-
-    .input::placeholder{
-      color:rgba(255,255,255,0.55);
-    }
-
-    .input:focus,
-    .driver-percent:focus{
-      outline:none;
-      border-color:#38bdf8;
-      box-shadow:0 0 0 2px rgba(56,189,248,0.25);
-      background:rgba(255,255,255,0.06);
-    }
-
-    input[type="date"]{
-      color:#ffffff;
-    }
-
-    input[type="date"]::-webkit-calendar-picker-indicator{
-      filter:invert(1);
-      opacity:0.8;
-      cursor:pointer;
-    }
-
-    input[type="number"]::-webkit-inner-spin-button,
-    input[type="number"]::-webkit-outer-spin-button{
-      filter:invert(1);
-      opacity:0.8;
-    }
-
-    input:-webkit-autofill{
-      -webkit-text-fill-color:#ffffff;
-      transition:background-color 5000s ease-in-out 0s;
-    }
-    /* ===== INPUT STYLE END ===== */
-
+    .card{background:linear-gradient(180deg,rgba(255,255,255,0.02),rgba(255,255,255,0.01));padding:12px;border-radius:var(--radius);border:1px solid rgba(255,255,255,0.03)}
+    .input{width:100%;padding:10px;border-radius:10px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:var(--white)}
     .btn{padding:10px 12px;border-radius:10px;border:0;cursor:pointer}
     .btn-primary{background:linear-gradient(90deg,#06b6d4,#3b82f6);color:#021426}
     .entry-card{padding:10px;border-radius:10px;background:var(--card);border:1px solid rgba(255,255,255,0.03);margin-bottom:8px}
     .small{font-size:13px;color:var(--muted)}
-
-    @media(min-width:860px){
-      .entries-list{display:none}
-      .table-wrap{display:block}
-      table{width:100%;border-collapse:collapse}
-      th,td{padding:10px;border-bottom:1px solid rgba(255,255,255,0.03);text-align:left}
-      th{color:var(--muted);font-size:12px}
-    }
+    .driver-percent{width:84px;padding:8px;border-radius:10px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:var(--white);text-align:center}
+    @media(min-width:860px){.entries-list{display:none}.table-wrap{display:block}table{width:100%;border-collapse:collapse}th,td{padding:10px;border-bottom:1px solid rgba(255,255,255,0.03);text-align:left}th{color:var(--muted);font-size:12px}}
   </style>
 </head>
-
 <body>
   <div class="container">
     <div class="header">
@@ -110,28 +32,412 @@
         <div class="logo">SR</div>
         <div>
           <div class="title">GO FAST RENT-A CAR</div>
-          <div class="sub">Car Rent Manager</div>
+          <div class="sub" data-key="sub_title">Car Rent Manager</div>
         </div>
+      </div>
+      <div style="display:flex;align-items:center;gap:10px">
+        <div style="text-align:right">
+          <div class="small" data-key="entries_label">Entries</div>
+          <div id="entryCount" style="font-weight:700">0</div>
+        </div>
+        <button id="exportBtn" class="btn" title="Export">⤓</button>
+        <button id="langToggle" class="btn">বাংলা</button>
       </div>
     </div>
 
     <div class="card">
-      <form style="display:grid;gap:8px">
-        <input type="date" class="input" required />
-        <input class="input" placeholder="Driver name" required />
-        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px">
-          <input class="input" placeholder="Rent" type="number" />
-          <input class="input" placeholder="Fuel" type="number" />
-          <input class="input" placeholder="Extra" type="number" />
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+        <div style="font-weight:700" data-key="add_edit">Add / Edit Entry</div>
+        <div style="display:flex;align-items:center;gap:8px">
+          <label class="small" data-key="driver_percent_label">Driver %</label>
+          <input id="driverPercent" class="driver-percent" type="number" min="0" max="100" value="40" />
         </div>
-        <input class="input" placeholder="Notes (optional)" />
-        <button class="btn btn-primary">Save</button>
+      </div>
+
+      <form id="entryForm" style="display:grid;gap:8px">
+        <input id="date" class="input" type="date" required data-key="date_field" />
+        <input id="driver" class="input" placeholder="Driver name" required data-key="driver_ph" />
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px">
+          <input id="rent" class="input" placeholder="Rent" type="number" data-key="rent_ph" />
+          <input id="fuel" class="input" placeholder="Fuel" type="number" data-key="fuel_ph" />
+          <input id="extra" class="input" placeholder="Extra" type="number" data-key="extra_ph" />
+        </div>
+        <input id="notes" class="input" placeholder="Notes (optional)" data-key="notes_ph" />
+        <div style="display:flex;gap:8px">
+          <button class="btn btn-primary" type="submit" data-key="save_btn">Save</button>
+          <button class="btn" type="button" id="resetBtn" data-key="reset_btn">Reset</button>
+          <button class="btn" type="button" id="importBtn" data-key="import_btn">Import</button>
+        </div>
       </form>
     </div>
 
-    <div class="small" style="margin-top:14px;text-align:center">
-      © 2025 Md Sadikur Rahman Shadhin — All rights reserved
+    <div class="card" style="margin-top:12px">
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <div style="font-weight:700" data-key="overview">Overview</div>
+        <div class="small" data-key="live_numbers">Live numbers</div>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:10px">
+        <div class="card"><div class="small" data-key="total_income">Total Income</div><div id="totalIncome" style="font-weight:700">0</div></div>
+        <div class="card"><div class="small" data-key="total_expense">Total Expense</div><div id="totalExpense" style="font-weight:700">0</div></div>
+        <div class="card"><div class="small" data-key="profit">Profit</div><div id="profit" style="font-weight:700">0</div></div>
+        <div class="card"><div class="small" data-key="driver_income">Driver Income</div><div id="driverShare" style="font-weight:700">0</div></div>
+      </div>
+      <div class="charts" style="margin-top:10px;display:grid;grid-template-columns:1fr;gap:8px">
+        <canvas id="dailyChart" height="140"></canvas>
+      </div>
     </div>
+
+    <div class="card" style="margin-top:12px">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+        <div style="font-weight:700" data-key="entries_title">Entries</div>
+        <div class="small" data-key="tap_edit">Tap item to edit</div>
+      </div>
+      <div class="entries-list" id="entriesList"></div>
+      <div class="table-wrap" id="tableWrap" style="display:none;margin-top:8px">
+        <table>
+          <thead>
+            <tr>
+              <th data-key="th_date">Date</th>
+              <th data-key="th_driver">Driver</th>
+              <th data-key="th_rent">Rent</th>
+              <th data-key="th_fuel">Fuel</th>
+              <th data-key="th_extra">Extra</th>
+              <th data-key="th_profit">Profit</th>
+              <th data-key="th_driver_share">Driver</th>
+            </tr>
+          </thead>
+          <tbody id="entriesTable"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="small" style="margin-top:12px;text-align:center" data-key="footer_copy">© 2025 Md Sadikur Rahman Shadhin — All rights reserved</div>
   </div>
+
+  <input type="file" id="importJson" accept=".json" style="display:none">
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-app.js";
+    import { getFirestore, collection, doc, setDoc, deleteDoc, onSnapshot, query, orderBy, getDoc } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore.js";
+
+    // ------------------ FIREBASE CONFIG (CONFIRMED) ------------------
+    const firebaseConfig = {
+      apiKey: "AIzaSyDcYaxhTXO2LYPnqGMD_hcJC4hxTMKLV8I",
+      authDomain: "shadhin-portfolio.firebaseapp.com",
+      projectId: "shadhin-portfolio",
+      storageBucket: "shadhin-portfolio.firebasestorage.app",
+      messagingSenderId: "362689759294",
+      appId: "1:362689759294:web:5d96f92628bf137124296f"
+    };
+    // -----------------------------------------------------------------
+
+    // initialize firebase
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+    const entriesCol = collection(db, "entries");
+    const settingsDocRef = doc(db, "meta", "settings");
+
+    const STORAGE_KEY = 'driver_dashboard_entries_v1';
+    const SETTINGS_KEY = 'driver_dashboard_settings_v1';
+
+    // DOM refs
+    const entryCountEl = document.getElementById('entryCount');
+    const entriesList = document.getElementById('entriesList');
+    const entriesTable = document.getElementById('entriesTable');
+    const dateEl = document.getElementById('date');
+    const driverEl = document.getElementById('driver');
+    const rentEl = document.getElementById('rent');
+    const fuelEl = document.getElementById('fuel');
+    const extraEl = document.getElementById('extra');
+    const notesEl = document.getElementById('notes');
+    const driverPercentEl = document.getElementById('driverPercent');
+    const totalIncomeEl = document.getElementById('totalIncome');
+    const totalExpenseEl = document.getElementById('totalExpense');
+    const profitEl = document.getElementById('profit');
+    const driverShareEl = document.getElementById('driverShare');
+    const importJson = document.getElementById('importJson');
+    const langToggleBtn = document.getElementById('langToggle');
+
+    let dailyChart;
+    function format(n){ return Number(n).toLocaleString(); }
+
+    // local fallback entries while firestore loads
+    let entries = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+    let editingId = null;
+
+    // ---- Language data ----
+    const langData = {
+      en: {
+        sub_title: "Car Rent Manager",
+        entries_label: "Entries",
+        add_edit: "Add / Edit Entry",
+        driver_percent_label: "Driver %",
+        date_field: "Date",
+        driver_ph: "Driver name",
+        rent_ph: "Rent",
+        fuel_ph: "Fuel",
+        extra_ph: "Extra",
+        notes_ph: "Notes (optional)",
+        save_btn: "Save",
+        reset_btn: "Reset",
+        import_btn: "Import",
+        overview: "Overview",
+        live_numbers: "Live numbers",
+        total_income: "Total Income",
+        total_expense: "Total Expense",
+        profit: "Profit",
+        driver_income: "Driver Income",
+        entries_title: "Entries",
+        tap_edit: "Tap item to edit",
+        th_date: "Date",
+        th_driver: "Driver",
+        th_rent: "Rent",
+        th_fuel: "Fuel",
+        th_extra: "Extra",
+        th_profit: "Profit",
+        th_driver_share: "Driver",
+        footer_copy: "© 2025 Md Sadikur Rahman Shadhin — All rights reserved",
+        driver_name_required: "Driver name required",
+        imported_ok: "Imported to Firestore",
+        invalid_json: "Invalid JSON file",
+        delete_confirm: "Delete?",
+        income: "Income",
+        expense: "Expense",
+        profit_label: "Profit:",
+        driver_label: "Driver:"
+      },
+      bn: {
+        sub_title: "গাড়ি ভাড়া ম্যানেজার",
+        entries_label: "এন্ট্রি",
+        add_edit: "এন্ট্রি যোগ / সম্পাদনা",
+        driver_percent_label: "ড্রাইভার %",
+        date_field: "তারিখ",
+        driver_ph: "ড্রাইভারের নাম",
+        rent_ph: "ভাড়া",
+        fuel_ph: "জ্বালানি",
+        extra_ph: "অতিরিক্ত",
+        notes_ph: "মন্তব্য (ঐচ্ছিক)",
+        save_btn: "সংরক্ষণ",
+        reset_btn: "রিসেট",
+        import_btn: "ইম্পোর্ট",
+        overview: "সারাংশ",
+        live_numbers: "লাইভ হিসাব",
+        total_income: "মোট আয়",
+        total_expense: "মোট খরচ",
+        profit: "লাভ",
+        driver_income: "ড্রাইভারের প্রাপ্য",
+        entries_title: "সমস্ত এন্ট্রি",
+        tap_edit: "এডিট করতে চাপ দিন",
+        th_date: "তারিখ",
+        th_driver: "ড্রাইভার",
+        th_rent: "ভাড়া",
+        th_fuel: "জ্বালানি",
+        th_extra: "অতিরিক্ত",
+        th_profit: "লাভ",
+        th_driver_share: "ড্রাইভার",
+        footer_copy: "© 2025 Md Sadikur Rahman Shadhin — সর্বস্বত্ব সংরক্ষিত",
+        driver_name_required: "ড্রাইভারের নাম দিতে হবে",
+        imported_ok: "Firestore-এ ইম্পোর্ট হয়েছে",
+        invalid_json: "অবৈধ JSON ফাইল",
+        delete_confirm: "মুছে ফেলবেন?",
+        income: "আয়",
+        expense: "খরচ",
+        profit_label: "লাভ:",
+        driver_label: "ড্রাইভার:"
+      }
+    };
+
+    // helper for current language
+    let currentLang = localStorage.getItem("lang") || "bn"; // default বাংলা
+    function t(key){
+      return (langData[currentLang] && langData[currentLang][key]) || key;
+    }
+
+    function applyLanguage(lang){
+      currentLang = lang;
+      // apply to elements with data-key
+      document.querySelectorAll("[data-key]").forEach(el=>{
+        const key = el.getAttribute("data-key");
+        if(!key) return;
+        // inputs/textareas -> placeholder
+        const tag = el.tagName.toLowerCase();
+        if(tag === 'input' || tag === 'textarea'){
+          const type = el.getAttribute('type');
+          // if it's date type we'll not change placeholder
+          if(type && type.toLowerCase()==='date') return;
+          el.placeholder = (langData[lang] && langData[lang][key]) || el.placeholder;
+        } else {
+          el.textContent = (langData[lang] && langData[lang][key]) || el.textContent;
+        }
+      });
+
+      // lang toggle button text: show the other language name
+      langToggleBtn.textContent = (lang === 'en') ? 'বাংলা' : 'English';
+
+      // update chart labels if chart exists
+      if(dailyChart && dailyChart.data && dailyChart.data.datasets){
+        dailyChart.data.datasets[0].label = t('income');
+        dailyChart.data.datasets[1].label = t('expense');
+        dailyChart.update();
+      }
+    }
+
+    // init chosen language
+    applyLanguage(currentLang);
+
+    // Save settings (driver percent) to Firestore/local
+    async function loadSettings() {
+      try {
+        const snap = await getDoc(settingsDocRef);
+        if (snap.exists()) {
+          const data = snap.data();
+          if (data.driverPercent !== undefined) {
+            driverPercentEl.value = data.driverPercent;
+            localStorage.setItem(SETTINGS_KEY, JSON.stringify({driverPercent: data.driverPercent}));
+          }
+        } else {
+          const st = JSON.parse(localStorage.getItem(SETTINGS_KEY) || '{}');
+          if (st.driverPercent !== undefined) driverPercentEl.value = st.driverPercent;
+        }
+      } catch (err) {
+        console.warn("Could not load settings from Firestore:", err);
+        const st = JSON.parse(localStorage.getItem(SETTINGS_KEY) || '{}');
+        if (st.driverPercent !== undefined) driverPercentEl.value = st.driverPercent;
+      }
+    }
+
+    driverPercentEl.addEventListener('change', async ()=>{
+      const v = Number(driverPercentEl.value) || 0;
+      localStorage.setItem(SETTINGS_KEY, JSON.stringify({driverPercent: v}));
+      try {
+        await setDoc(settingsDocRef, { driverPercent: v }, { merge: true });
+      } catch(e) { console.warn("Settings save failed:", e); }
+      render();
+      updateStats();
+    });
+
+    // language toggle click
+    langToggleBtn.addEventListener('click', ()=>{
+      currentLang = currentLang === 'en' ? 'bn' : 'en';
+      applyLanguage(currentLang);
+      localStorage.setItem("lang", currentLang);
+    });
+
+    function saveLocalEntries(){ localStorage.setItem(STORAGE_KEY, JSON.stringify(entries)); }
+
+    // Firestore query and realtime listener
+    const q = query(entriesCol, orderBy("createdAt", "desc"));
+    onSnapshot(q, (snapshot) => {
+      const docs = [];
+      snapshot.forEach(docSnap => {
+        const data = docSnap.data();
+        docs.push({
+          id: docSnap.id,
+          date: data.date || new Date().toISOString().slice(0,10),
+          driver: data.driver || "",
+          rent: Number(data.rent || 0),
+          fuel: Number(data.fuel || 0),
+          extra: Number(data.extra || 0),
+          notes: data.notes || ""
+        });
+      });
+      entries = docs;
+      saveLocalEntries();
+      render();
+      updateStats();
+    }, (err) => {
+      console.warn("Firestore snapshot error:", err);
+      render();
+      updateStats();
+    });
+
+    async function upsertEntryToFirestore(obj) { 
+      try { 
+        const docRef = doc(entriesCol, String(obj.id));
+        await setDoc(docRef, { 
+          date: obj.date, driver: obj.driver, rent: obj.rent, fuel: obj.fuel, extra: obj.extra, notes: obj.notes,
+          createdAt: Date.now()
+        }, { merge: true });
+      } catch (e) { console.error("upsert failed", e); }
+    }
+
+    async function deleteEntryFromFirestore(id) { 
+      try { await deleteDoc(doc(entriesCol, String(id))); } catch (e) { console.error("delete failed", e); }
+    }
+
+    document.getElementById('entryForm').addEventListener('submit', async (ev)=>{
+      ev.preventDefault();
+      if(!driverEl.value.trim()){ alert(t('driver_name_required')); return; }
+      const obj = {
+        id: editingId || Date.now(),
+        date: dateEl.value || new Date().toISOString().slice(0,10),
+        driver: driverEl.value.trim(),
+        rent: Number(rentEl.value)||0,
+        fuel: Number(fuelEl.value)||0,
+        extra: Number(extraEl.value)||0,
+        notes: notesEl.value||''
+      };
+      if(editingId){ entries = entries.map(x=> x.id===editingId ? obj : x); editingId = null; } else { entries.unshift(obj); }
+      saveLocalEntries();
+      render(); updateStats();
+      await upsertEntryToFirestore(obj);
+      document.getElementById('entryForm').reset();
+      dateEl.value = new Date().toISOString().slice(0,10);
+    });
+
+    document.getElementById('resetBtn').addEventListener('click', ()=>{ document.getElementById('entryForm').reset(); editingId = null; dateEl.value = new Date().toISOString().slice(0,10); });
+
+    document.getElementById('importBtn').addEventListener('click', ()=> importJson.click());
+    importJson.addEventListener('change', function(){
+      const f = this.files[0]; if(!f) return;
+      const r = new FileReader();
+      r.onload = async (e)=>{
+        try{
+          const data = JSON.parse(e.target.result);
+          if(!Array.isArray(data)) throw 'Invalid';
+          for(const item of data){
+            const id = item.id || Date.now() + Math.floor(Math.random()*10000);
+            const obj = {
+              id: id,
+              date: item.date || new Date().toISOString().slice(0,10),
+              driver: item.driver || '',
+              rent: Number(item.rent)||0,
+              fuel: Number(item.fuel)||0,
+              extra: Number(item.extra)||0,
+              notes: item.notes || ''
+            };
+            await upsertEntryToFirestore(obj);
+          }
+          alert(t('imported_ok'));
+        }catch(err){ alert(t('invalid_json')); }
+      };
+      r.readAsText(f); this.value='';
+    });
+
+    document.getElementById('exportBtn').addEventListener('click', ()=>{
+      const blob = new Blob([JSON.stringify(entries,null,2)],{type:'application/json'}); const url = URL.createObjectURL(blob);
+      const a=document.createElement('a'); a.href=url; a.download='driver_entries.json'; a.click(); URL.revokeObjectURL(url);
+    });
+
+    window.editEntry = function(id){ const e = entries.find(x=>x.id===id); if(!e) return; editingId = id; dateEl.value = e.date; driverEl.value = e.driver; rentEl.value = e.rent; fuelEl.value = e.fuel; extraEl.value = e.extra; notesEl.value = e.notes; window.scrollTo({top:0,behavior:'smooth'}); };
+
+    window.deleteEntry = async function(id){ if(!confirm(t('delete_confirm'))) return; entries = entries.filter(x=> x.id!==id); saveLocalEntries(); render(); updateStats(); await deleteEntryFromFirestore(id); };
+
+    function initCharts(){ try{ const ctx1 = document.getElementById('dailyChart').getContext('2d'); dailyChart = new Chart(ctx1, { type:'line', data:{ labels:[], datasets:[ {label:t('income'), data:[], fill:false, tension:0.3}, {label:t('expense'), data:[], fill:false, tension:0.3} ] }, options:{ responsive:true, maintainAspectRatio:false, plugins:{legend:{position:'bottom'}} } }); const ctx2canvas = document.createElement('canvas'); ctx2canvas.style.display='none'; document.body.appendChild(ctx2canvas); }catch(e){console.warn('chart init', e)} }
+    function updateStats(){ const totals = {income:0,fuel:0,extra:0}; entries.forEach(e=>{ totals.income += e.rent; totals.fuel += e.fuel; totals.extra += e.extra; }); totals.expense = totals.fuel + totals.extra; totals.profit = totals.income - totals.expense; totalIncomeEl.textContent = format(totals.income); totalExpenseEl.textContent = format(totals.expense); profitEl.textContent = format(totals.profit); const percent = Number(driverPercentEl.value)||40; const dShare = Math.max(0, Math.round(totals.profit * percent / 100)); driverShareEl.textContent = format(dShare); try{ const daily = {}; entries.forEach(e=>{ if(!daily[e.date]) daily[e.date] = {income:0,expense:0}; daily[e.date].income += e.rent; daily[e.date].expense += (e.fuel + e.extra); }); const dates = Object.keys(daily).sort(); if(dailyChart){ dailyChart.data.labels = dates; dailyChart.data.datasets[0].data = dates.map(d=>daily[d].income); dailyChart.data.datasets[1].data = dates.map(d=>daily[d].expense); dailyChart.update(); } }catch(e){} }
+    function render(){ entryCountEl.textContent = entries.length; entriesList.innerHTML = ''; entries.forEach(e=>{ const profit = e.rent - (e.fuel + e.extra); const percent = Number(driverPercentEl.value)||40; const dShare = Math.max(0, Math.round(profit * percent / 100)); const card = document.createElement('div'); card.className='entry-card'; card.innerHTML = '<div style="display:flex;justify-content:space-between;align-items:center"><div><div style="font-weight:700">'+escapeHtml(e.driver)+'</div><div class="small">'+e.date+' · '+format(e.rent)+'</div></div><div style="text-align:right"><div style="font-weight:700">'+t('profit_label')+' '+format(profit)+'</div><div class="small">'+t('driver_label')+' '+format(dShare)+'</div></div></div><div style="display:flex;justify-content:space-between;margin-top:8px;align-items:center"><div class="small">'+escapeHtml(e.notes||'')+'</div><div style="display:flex;gap:8px"><button class="btn" onclick="editEntry('+e.id+')">✎</button><button class="btn" onclick="deleteEntry('+e.id+')">🗑</button></div></div>'; card.addEventListener('click', function(ev){ if(ev.target.tagName.toLowerCase() !== 'button') editEntry(e.id); }); entriesList.appendChild(card); }); entriesTable.innerHTML = ''; entries.forEach(e=>{ const profit = e.rent - (e.fuel + e.extra); const percent = Number(driverPercentEl.value)||40; const dShare = Math.max(0, Math.round(profit * percent / 100)); const tr = document.createElement('tr'); tr.innerHTML = '<td>'+e.date+'</td><td>'+escapeHtml(e.driver)+'</td><td>'+format(e.rent)+'</td><td>'+format(e.fuel)+'</td><td>'+format(e.extra)+'</td><td>'+format(profit)+'</td><td>'+format(dShare)+'</td>'; entriesTable.appendChild(tr); }); updateStats(); applyLanguage(currentLang); }
+
+    // simple escape to avoid HTML injection in notes/driver
+    function escapeHtml(text){
+      return String(text).replace(/[&<>"'=\/]/g, function (s) {
+        return ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;','/':'&#x2F;','':'&#x60;','=':'&#x3D;'})[s];
+      });
+    }
+
+    // init
+    initCharts();
+    loadSettings().then(()=>{ render(); updateStats(); });
+
+  </script>
 </body>
 </html>
