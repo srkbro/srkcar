@@ -9,7 +9,7 @@
 
   <!-- ================= PREMIUM THEME ================= -->
   <style>
-/* ================= iOS 26 THEME ================= */
+/* ================= iOS 26 APPLE GLASS THEME ================= */
 :root{
   --bg:#0b0e1a;
   --bg-2:#11162b;
@@ -21,12 +21,14 @@
   --text:#f5f7ff;
   --muted:#aab1d6;
 
-  --blue:#0a84ff;     /* iOS system blue */
-  --cyan:#64d2ff;
+  --ios-blue:#0a84ff;
+  --ios-cyan:#64d2ff;
+  --ios-green:#34c759;
+  --ios-red:#ff3b30;
 
   --radius-lg:18px;
   --radius-md:14px;
-  --radius-sm:10px;
+  --radius-sm:999px;
 
   --max-width:900px;
 
@@ -69,43 +71,25 @@ html,body{
   margin-bottom:14px;
 }
 
-.brand{
-  display:flex;
-  align-items:center;
-  gap:12px;
-}
+.brand{display:flex;align-items:center;gap:12px}
 
 .logo{
   width:52px;height:52px;
   border-radius:14px;
-  background:linear-gradient(135deg,var(--cyan),var(--blue));
-  display:flex;
-  align-items:center;
-  justify-content:center;
+  background:linear-gradient(135deg,var(--ios-cyan),var(--ios-blue));
+  display:flex;align-items:center;justify-content:center;
   font-weight:800;
   color:#001018;
   box-shadow:0 8px 20px rgba(10,132,255,.35);
 }
 
-.title{
-  font-size:17px;
-  font-weight:700;
-  letter-spacing:.2px;
-}
+.title{font-size:17px;font-weight:700}
+.sub{font-size:13px;color:var(--muted)}
 
-.sub{
-  font-size:13px;
-  color:var(--muted);
-}
-
-/* ================= iOS GLASS CARD ================= */
+/* ================= APPLE GLASS CARD ================= */
 .card{
   position:relative;
-  background:linear-gradient(
-    180deg,
-    var(--glass-strong),
-    var(--glass)
-  );
+  background:linear-gradient(180deg,var(--glass-strong),var(--glass));
   backdrop-filter: blur(24px) saturate(160%);
   -webkit-backdrop-filter: blur(24px) saturate(160%);
   border:1px solid var(--border);
@@ -116,7 +100,6 @@ html,body{
     0 18px 45px rgba(0,0,0,.45);
 }
 
-/* iOS light reflection */
 .card::after{
   content:"";
   position:absolute;
@@ -140,16 +123,10 @@ html,body{
   background:rgba(255,255,255,0.05);
   color:var(--text);
   font-size:15px;
-  outline:none;
-  transition:.2s ease;
-}
-
-.input::placeholder{
-  color:var(--muted);
 }
 
 .input:focus{
-  border-color:var(--blue);
+  border-color:var(--ios-blue);
   box-shadow:0 0 0 3px rgba(10,132,255,.25);
 }
 
@@ -159,7 +136,7 @@ input[type="date"]{
   padding:6px 10px;
   font-size:14px;
   font-weight:600;
-  border-radius:var(--radius-sm);
+  border-radius:10px;
   color:var(--text);
   background:linear-gradient(
     180deg,
@@ -173,10 +150,9 @@ input[type="date"]{
 input[type="date"]::-webkit-calendar-picker-indicator{
   transform:scale(.8);
   filter:invert(1) brightness(1.4);
-  opacity:.9;
 }
 
-/* ================= BUTTONS (iOS STYLE) ================= */
+/* ================= BUTTONS ================= */
 .btn{
   padding:11px 16px;
   border-radius:var(--radius-md);
@@ -185,13 +161,9 @@ input[type="date"]::-webkit-calendar-picker-indicator{
   color:var(--text);
   font-size:15px;
   font-weight:600;
-  cursor:pointer;
-  transition:.15s ease;
 }
 
-.btn:active{
-  transform:scale(.97);
-}
+.btn:active{transform:scale(.97)}
 
 .btn-primary{
   background:linear-gradient(180deg,#4da3ff,#0a84ff);
@@ -200,62 +172,94 @@ input[type="date"]::-webkit-calendar-picker-indicator{
   box-shadow:0 10px 25px rgba(10,132,255,.45);
 }
 
-/* ================= FORM ANIMATION ================= */
-#entryForm > *{
-  opacity:0;
-  transform:translateY(6px);
-  animation:formIn .4s ease forwards;
-}
-
-#entryForm > *:nth-child(1){animation-delay:.05s}
-#entryForm > *:nth-child(2){animation-delay:.1s}
-#entryForm > *:nth-child(3){animation-delay:.15s}
-#entryForm > *:nth-child(4){animation-delay:.2s}
-#entryForm > *:nth-child(5){animation-delay:.25s}
-
-@keyframes formIn{
-  to{opacity:1;transform:none}
-}
-
-/* ================= ENTRY ================= */
+/* ================= ENTRY (iOS LIST) ================= */
 .entry-card{
-  background:rgba(255,255,255,0.05);
+  position:relative;
+  padding:14px;
+  border-radius:var(--radius-lg);
+  background:linear-gradient(
+    180deg,
+    rgba(255,255,255,0.12),
+    rgba(255,255,255,0.05)
+  );
+  backdrop-filter: blur(18px) saturate(150%);
+  -webkit-backdrop-filter: blur(18px) saturate(150%);
   border:1px solid var(--border);
-  border-radius:var(--radius-md);
-  padding:12px;
-  margin-bottom:10px;
+  margin-bottom:12px;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.25),
+    0 14px 30px rgba(0,0,0,.35);
 }
 
-.small{
-  font-size:13px;
+.entry-card::before{
+  content:"";
+  position:absolute;
+  top:0;left:0;right:0;
+  height:1px;
+  background:rgba(255,255,255,.35);
+}
+
+/* top row */
+.entry-top{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+}
+
+.entry-title{
+  font-size:15px;
+  font-weight:600;
+}
+
+.entry-meta{
+  font-size:12px;
   color:var(--muted);
+  margin-top:4px;
 }
 
-.driver-percent{
-  width:90px;
-  padding:8px;
-  border-radius:var(--radius-sm);
-  border:1px solid var(--border);
-  background:rgba(255,255,255,0.05);
-  color:var(--text);
-  text-align:center;
+/* ================= iOS BADGES ================= */
+.badge{
+  padding:4px 10px;
+  border-radius:999px;
+  font-size:12px;
+  font-weight:600;
+  letter-spacing:.2px;
+  border:1px solid;
+  backdrop-filter: blur(10px);
 }
+
+/* Income */
+.badge-income{
+  color:var(--ios-green);
+  background:rgba(52,199,89,.18);
+  border-color:rgba(52,199,89,.45);
+}
+
+/* Expense */
+.badge-expense{
+  color:var(--ios-red);
+  background:rgba(255,59,48,.18);
+  border-color:rgba(255,59,48,.45);
+}
+
+/* Amount */
+.entry-amount{
+  margin-top:8px;
+  font-size:17px;
+  font-weight:700;
+}
+
+.entry-amount.income{color:var(--ios-green)}
+.entry-amount.expense{color:var(--ios-red)}
 
 /* ================= TABLE ================= */
-table{
-  width:100%;
-  border-collapse:collapse;
-}
-
+table{width:100%;border-collapse:collapse}
 th,td{
   padding:12px;
   border-bottom:1px solid var(--border);
 }
-
-th{
-  font-size:12px;
-  color:var(--muted);
-}
+th{font-size:12px;color:var(--muted)}
 
 /* ================= CHART ================= */
 .charts canvas{
