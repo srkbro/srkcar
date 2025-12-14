@@ -6,8 +6,7 @@
   <title>GO FAST RENT-A CAR</title>
   <link rel="icon" href="data:,">
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-  <!-- ================= PREMIUM THEME ================= -->
+  
   <style>
 /* ================= iOS 26 APPLE GLASS THEME ================= */
 :root{
@@ -28,7 +27,7 @@
 
   --radius-lg:18px;
   --radius-md:14px;
-  --radius-sm:999px;
+  --radius-sm:8px;
 
   --max-width:900px;
 
@@ -130,26 +129,37 @@ html,body{
   box-shadow:0 0 0 3px rgba(10,132,255,.25);
 }
 
-/* ================= iOS DATE ================= */
+/* ================= iOS COMPACT DATE FIELD ================= */
 input[type="date"]{
-  height:38px;
-  padding:6px 10px;
-  font-size:14px;
+  height:32px;                 /* ছোট করা */
+  max-width:160px;             /* আলাদা compact box */
+  padding:4px 8px;
+  font-size:13px;
   font-weight:600;
-  border-radius:10px;
+  border-radius:var(--radius-sm);
+
   color:var(--text);
-  background:linear-gradient(
-    180deg,
-    rgba(255,255,255,0.14),
-    rgba(255,255,255,0.04)
-  );
-  border:1px solid var(--border);
-  backdrop-filter: blur(14px);
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255,255,255,0.16),
+      rgba(255,255,255,0.05)
+    );
+
+  border:1px solid rgba(255,255,255,0.25);
+  backdrop-filter: blur(12px);
 }
 
 input[type="date"]::-webkit-calendar-picker-indicator{
-  transform:scale(.8);
+  transform:scale(.7);         /* icon ছোট */
   filter:invert(1) brightness(1.4);
+  opacity:.9;
+  margin-left:2px;
+}
+
+input[type="date"]:focus{
+  border-color:var(--ios-blue);
+  box-shadow:0 0 0 2px rgba(10,132,255,.3);
 }
 
 /* ================= BUTTONS ================= */
@@ -191,26 +201,13 @@ input[type="date"]::-webkit-calendar-picker-indicator{
     0 14px 30px rgba(0,0,0,.35);
 }
 
-.entry-card::before{
-  content:"";
-  position:absolute;
-  top:0;left:0;right:0;
-  height:1px;
-  background:rgba(255,255,255,.35);
-}
-
-/* top row */
 .entry-top{
   display:flex;
   align-items:center;
   justify-content:space-between;
-  gap:10px;
 }
 
-.entry-title{
-  font-size:15px;
-  font-weight:600;
-}
+.entry-title{font-size:15px;font-weight:600}
 
 .entry-meta{
   font-size:12px;
@@ -218,32 +215,27 @@ input[type="date"]::-webkit-calendar-picker-indicator{
   margin-top:4px;
 }
 
-/* ================= iOS BADGES ================= */
+/* ===== BADGES ===== */
 .badge{
   padding:4px 10px;
   border-radius:999px;
   font-size:12px;
   font-weight:600;
-  letter-spacing:.2px;
   border:1px solid;
-  backdrop-filter: blur(10px);
 }
 
-/* Income */
 .badge-income{
   color:var(--ios-green);
   background:rgba(52,199,89,.18);
   border-color:rgba(52,199,89,.45);
 }
 
-/* Expense */
 .badge-expense{
   color:var(--ios-red);
   background:rgba(255,59,48,.18);
   border-color:rgba(255,59,48,.45);
 }
 
-/* Amount */
 .entry-amount{
   margin-top:8px;
   font-size:17px;
@@ -252,25 +244,6 @@ input[type="date"]::-webkit-calendar-picker-indicator{
 
 .entry-amount.income{color:var(--ios-green)}
 .entry-amount.expense{color:var(--ios-red)}
-
-/* ================= TABLE ================= */
-table{width:100%;border-collapse:collapse}
-th,td{
-  padding:12px;
-  border-bottom:1px solid var(--border);
-}
-th{font-size:12px;color:var(--muted)}
-
-/* ================= CHART ================= */
-.charts canvas{
-  background:linear-gradient(
-    180deg,
-    rgba(255,255,255,0.08),
-    rgba(255,255,255,0.03)
-  );
-  border-radius:var(--radius-lg);
-  border:1px solid var(--border);
-}
 
 /* ================= RESPONSIVE ================= */
 @media(min-width:860px){
